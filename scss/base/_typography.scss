@@ -1,0 +1,5 @@
+@use "../abstracts" as sv;
+
+body {
+  font-family: sv.$font-stack;
+}

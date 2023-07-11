@@ -1,0 +1,77 @@
+@use "../abstracts/css-variables" as *;
+
+.shop-title-with-cart {
+  position: relative;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  gap: 0.66rem;
+
+  svg {
+    font-size: 3rem;
+  }
+}
+
+.cart-tracker {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  background-color: var(--site-colour-primary-dark);
+  color: snow;
+  padding: 0.66rem;
+  -webkit-clip-path: circle(1rem);
+  clip-path: circle(1rem);
+  width: fit-content;
+}
+
+.cart-tracker-hide {
+  display: none;
+  // transform: translateX(-500px);
+}
+
+.shop-title-without-cart {
+  text-align: center;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  gap: 0.66rem;
+}
+
+// no longer using default WC shop view - therefore no need to customise it with this CSS
+#override.woocommerce-shop-xxxxxxx {
+  ul.products {
+    li {
+      border: 1px solid black;
+      box-sizing: content-box;
+      padding: 1.4rem 2.2rem;
+      border: 1px solid rgb(0 0 0 / 33%);
+      background-color: white;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+
+      img {
+        object-fit: cover;
+        aspect-ratio: 2 / 2;
+        border-radius: 4px;
+      }
+
+      .price {
+        color: var(--site-colour-primary-dark);
+        background-color: darken(mintcream, 3%);
+        display: inline-block;
+        border: 1px solid darken(mintcream, 6%);
+        border-radius: 4px;
+        padding: 0.2rem 0;
+        width: -webkit-fill-available;
+        text-align: center;
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+#override .section-inner {
+  max-width: unset;
+}

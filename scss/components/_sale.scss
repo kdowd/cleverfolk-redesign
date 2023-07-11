@@ -1,0 +1,66 @@
+.clever-notices {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  z-index: 10;
+}
+
+.notices-item {
+  width: min-content;
+  margin: 0;
+  color: var(--sale-colour);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9rem;
+  background-color: snow;
+  rotate: 10deg;
+  box-shadow: 0 0 1px 1px #121212;
+  border-radius: 4px;
+  text-transform: lowercase;
+  font-weight: normal;
+}
+
+.notices-item::before {
+  margin: 0;
+  content: "o";
+  position: absolute;
+  top: 0px;
+  left: 3px;
+  font-weight: bold;
+  font-size: 5px;
+  color: #000;
+}
+
+.sale {
+  color: var(--sale-colour);
+}
+
+.low-stock {
+  color: var(--notices-colour);
+}
+
+.no-stock {
+  width: min-content;
+  color: var(--notices-colour);
+}
+
+// bump up the specificity
+div.woocommerce span.onsale {
+  min-height: unset;
+  min-width: unset;
+  line-height: unset;
+  padding: 0.25rem 0.75rem;
+  margin: 0;
+  color: var(--sale-colour);
+  font-size: 0.9rem;
+  background-color: white;
+  rotate: 10deg;
+  box-shadow: 0 0 1px 1px #121212;
+  border-radius: 4px;
+  text-transform: lowercase;
+  font-weight: normal;
+}
+
+#override .woocommerce-cart-form,
+#override .shop_table {
+  background-color: white;
+}

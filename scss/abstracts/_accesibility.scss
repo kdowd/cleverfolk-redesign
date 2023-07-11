@@ -1,0 +1,22 @@
+/* Skip Link */
+
+.skip-link {
+  position: absolute;
+  left: -9999rem;
+  top: 2.5rem;
+  z-index: 999999999;
+}
+
+.skip-link:focus {
+  left: 2.5rem;
+  text-decoration: none;
+}
+
+/* Accessibility Settings */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+}

@@ -1,0 +1,13 @@
+body {
+  background-color: var(--site-background-colour);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  // maybe
+  // min-height: 100dvh;
+  min-height: 100svh;
+}
+
+main {
+  flex: 1;
+}

@@ -1,0 +1,160 @@
+.site-header {
+  background: #121212;
+  color: #fff;
+  margin: 0 auto 0 auto;
+  padding: 80px 50px 144px 50px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 380px;
+  z-index: 100;
+}
+
+.same-custom-bgs .site-header,
+.white-bg .site-header {
+  border-right: 1px solid rgba(0, 0, 4, 0.075);
+}
+
+.site-header a {
+  color: #fff;
+}
+
+.dark .site-header,
+.dark .site-header a {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.site-title,
+.site-description {
+  line-height: 1.25;
+}
+
+.site-title {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+.site-title a {
+  text-decoration: none;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+}
+
+.site-title svg {
+  font-size: 2.2rem;
+}
+
+.site-title a:hover {
+  border-bottom-color: #fff;
+}
+
+.dark .site-title a:hover {
+  border-bottom-color: rgba(0, 0, 0, 0.9);
+}
+
+.site-description {
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.dark .site-description {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.nav-toggle {
+  cursor: pointer;
+  position: relative;
+  background-color: aqua;
+
+  @media (min-width: 1000px) {
+    display: none;
+  }
+}
+
+// this is so the nav-toggle gets those pointer events
+.nav-toggle:before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -20px;
+  left: -35px;
+  right: -10px;
+  top: -16px;
+  // background-color: red;
+}
+
+.nav-toggle .bar {
+  background: #fff;
+  display: block;
+  height: 1px;
+  margin-top: 0;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in 0s, margin 0.2s ease-out 0.2s;
+  width: 28px;
+  z-index: 1;
+}
+
+.dark .nav-toggle .bar {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.nav-toggle .bar:nth-child(1) {
+  margin-top: -5px;
+}
+.nav-toggle .bar:nth-child(2) {
+  margin-top: 3px;
+}
+
+.nav-toggle .bar:nth-child(3) {
+  margin-top: 11px;
+}
+
+.nav-toggle.active .bar {
+  transition: margin 0.2s ease-in, transform 0.2s ease-out 0.25s;
+}
+
+.nav-toggle.active .bar:nth-child(1) {
+  margin-top: -1px;
+  transform: rotate(45deg);
+}
+
+.nav-toggle.active .bar:nth-child(2) {
+  margin-top: -1px;
+  transform: rotate(-45deg);
+}
+
+.nav-toggle.active .bar:nth-child(3) {
+  opacity: 0;
+}
+
+.menu-widgets-area {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 2rem;
+  border-bottom: 1px solid snow;
+  border-top: 1px solid snow;
+  padding: 0.66rem 0;
+}
+
+.social-menu.desktop {
+  padding: 0;
+  position: static;
+  bottom: unset;
+  left: unset;
+  right: unset;
+}
