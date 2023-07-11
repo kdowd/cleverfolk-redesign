@@ -335,6 +335,20 @@ require __DIR__ . '/inc/widget-areas.php';
 require __DIR__ . '/inc/logger.php';
 require __DIR__ . '/inc/utilities.php';
 
+add_action('init', 'woocommerce_clear_cart_url');
+function woocommerce_clear_cart_url()
+{
+	//global $woocommerce;
+
+	//if (is_front_page() && isset($_GET['empty-cart'])) {
+	//$woocommerce->cart->empty_cart();
+	//WC()->cart->empty_cart();
+	//}
+	// WC()->session->set('cart', array());
+	// logger(WC()->session);
+}
+
+
 // main hooks for customizations are: 
 // see https://stackoverflow.com/questions/54421397/woocommerce-checkout-fields-settings-and-customization-hooks
 // NICE = https://woocommerce.com/document/tutorial-customising-checkout-fields-using-actions-and-filters/

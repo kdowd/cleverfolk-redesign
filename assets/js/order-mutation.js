@@ -1,34 +1,31 @@
-// let observer = new MutationObserver(() => {
-//   alert("wtf");
-// });
+// use local storage
+//{"totals":{"total_items":"0"
+// ,"total_items_tax":"0"
+// ,"total_fees":"0"
+// ,"total_fees_tax":"0"
+// ,"total_discount":"0"
+// ,"total_discount_tax":"0"
+// ,"total_shipping":null
+// ,"total_shipping_tax":null
+// ,"total_price":"0"
+// ,"total_tax":"0"
+// ,"tax_lines":[]
+// ,"currency_code":"NZD"
+// ,"currency_symbol":"$"
+// ,"currency_minor_unit":2
+// ,"currency_decimal_separator":"."
+// ,"currency_thousand_separator":"
+// ,"
+// ,"currency_prefix":"$"
+// ,"currency_suffix":""}
+// ,"itemsCount":0}
 
-// observer.observe($0);
-
-// let options = {
-//   childList: false,
-//   attributes: false,
-//   characterData: true,
-//   subtree: false,
-//   attributeOldValue: false,
-//   characterDataOldValue: false,
-//   attributeFilter: ["hidden", "contenteditable", "data-par"],
-// };
-
-// observer.observe($0, options);
-
-// function mCallback(mutations) {
-//   for (let mutation of mutations) {
-//     if (mutation.type === "characterData") {
-//       // Do something here...
-//     }
-//   }
-// }
-
+// if draw is open the body will have a drawer-open class
 window.addEventListener("load", (e) => {
   setTimeout(() => {
     getInitial();
+    searchAndListen();
   }, 1000);
-  document.body.addEventListener("wc-blocks_added_to_cart", searchAndListen, { once: true });
 });
 
 function getInitial() {
@@ -43,7 +40,9 @@ function getInitial() {
 }
 
 function searchAndListen(evt) {
-  let mini_cart_element = document.querySelector(".wc-block-mini-cart__button");
+  console.log("searchAndListen");
+  // let mini_cart_element = document.querySelector(".wc-block-mini-cart__button");
+  let mini_cart_element = document.querySelector(".wc-block-mini-cart");
 
   if (!!mini_cart_element) {
     letsListen(mini_cart_element);
@@ -51,7 +50,9 @@ function searchAndListen(evt) {
 }
 
 function letsListen(ele) {
+  console.log("letsListen to ", ele);
   let observer = new MutationObserver((mutations) => {
+    console.log("mutated");
     let cartBadge = document.querySelector(".wc-block-mini-cart__badge");
     if (!!cartBadge) {
       console.log(cartBadge.innerText);
