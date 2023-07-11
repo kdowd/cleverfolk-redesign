@@ -119,10 +119,10 @@ if (!function_exists('mcluhan_has_js')) {
 	function mcluhan_has_js()
 	{
 ?>
-<script>
-jQuery('html').removeClass('no-js').addClass('js');
-</script>
-<?php
+		<script>
+			jQuery('html').removeClass('no-js').addClass('js');
+		</script>
+		<?php
 	}
 }
 add_action('wp_head', 'mcluhan_has_js');
@@ -154,11 +154,11 @@ if (!function_exists('mcluhan_ajax_results')) {
 
 		?>
 
-<p class="results-title"><?php _e('Search Results', 'mcluhan'); ?></p>
+				<p class="results-title"><?php _e('Search Results', 'mcluhan'); ?></p>
 
-<ul>
+				<ul>
 
-    <?php
+					<?php
 
 					// Custom loop
 					while ($ajax_query->have_posts()) :
@@ -173,13 +173,13 @@ if (!function_exists('mcluhan_ajax_results')) {
 
 					?>
 
-</ul>
+				</ul>
 
-<?php if ($ajax_query->max_num_pages > 1) : ?>
+				<?php if ($ajax_query->max_num_pages > 1) : ?>
 
-<a class="show-all" href="<?php echo esc_url(home_url('?s=' . $string)); ?>"><?php _e('Show all', 'mcluhan'); ?></a>
+					<a class="show-all" href="<?php echo esc_url(home_url('?s=' . $string)); ?>"><?php _e('Show all', 'mcluhan'); ?></a>
 
-<?php endif; ?>
+				<?php endif; ?>
 
 <?php
 
@@ -335,18 +335,26 @@ require __DIR__ . '/inc/widget-areas.php';
 require __DIR__ . '/inc/logger.php';
 require __DIR__ . '/inc/utilities.php';
 
-add_action('init', 'woocommerce_clear_cart_url');
+add_action('parse_request', 'woocommerce_clear_cart_url');
 function woocommerce_clear_cart_url()
 {
-	//global $woocommerce;
+	//https://codex.wordpress.org/Plugin_API/Action_Reference
+	//echo "sweet";
 
-	//if (is_front_page() && isset($_GET['empty-cart'])) {
-	//$woocommerce->cart->empty_cart();
+	if (isset($_GET['empty-cart'])) {
+		logger(WC()->session);
+	}
+
 	//WC()->cart->empty_cart();
-	//}
-	// WC()->session->set('cart', array());
+	//WC()->session->set('cart', array());
 	// logger(WC()->session);
 }
+
+function wpdocs_set_custom_isvars($query)
+{
+	logger($query->query_vars->name);
+}
+//add_action('parse_query', 'wpdocs_set_custom_isvars');
 
 
 // main hooks for customizations are: 

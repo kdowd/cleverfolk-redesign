@@ -1,0 +1,33 @@
+.floating-cart-widget {
+  &.hide {
+    display: none;
+  }
+
+  &.show {
+    position: fixed;
+    top: 50%;
+    z-index: 500;
+    display: flex;
+  }
+}
+
+.tv {
+  position: relative;
+  width: 60px;
+  height: 40px;
+  background: var(--floating-widget-bc);
+  border-radius: 50% / 10%;
+  color: var(--floating-widget-col);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.tv:before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  right: -5%;
+  left: -5%;
+  background: inherit;
+  border-radius: 5% / 50%;
+}
