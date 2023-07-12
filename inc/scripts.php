@@ -7,7 +7,7 @@ function load_site_styles()
     wp_enqueue_style('site-styles', CODE_BASE . '/css/site-styles.min.css', array(), $CACHE_BUSTER);
     wp_enqueue_style('main-style', CODE_BASE . '/css/main.min.css', array(), $CACHE_BUSTER);
     wp_enqueue_style('temp-style', CODE_BASE . '/css/temp.css', array(), $CACHE_BUSTER);
-    // wp_enqueue_script('floating-widget', CODE_BASE . '/assets/js/floating-cart-widget.js', array(), $CACHE_BUSTER);
+    wp_enqueue_script('floating-widget', CODE_BASE . '/assets/js/floating-cart-widget.js', array(), $CACHE_BUSTER);
 }
 
 

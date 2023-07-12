@@ -52,7 +52,6 @@ function searchAndListen(evt) {
 function letsListen(ele) {
   console.log("letsListen to ", ele);
   let observer = new MutationObserver((mutations) => {
-    console.log("mutated");
     let cartBadge = document.querySelector(".wc-block-mini-cart__badge");
     if (!!cartBadge) {
       console.log(cartBadge.innerText);

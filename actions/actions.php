@@ -12,15 +12,47 @@ function remove_product_tabs($tabs)
     return $tabs;
 }
 
+add_action('get-toast-ui', 'get_toast_callback', 10, 2);
 
+function get_toast_callback()
+{
+?>
+
+<div class="toast">
+
+    <span class="bar"></span>
+
+    <div class="toast-content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">
+            <mask id="ipSCorrect0">
+                <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="4" d="m4 24l5-5l10 10L39 9l5 5l-25 25L4 24Z" clip-rule="evenodd" />
+            </mask>
+            <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSCorrect0)" />
+        </svg>
+        <p>Item added to cart.</p>
+        <div class="close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41z" />
+            </svg>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<?php
+}
 
 add_action('get-custom-products', 'custom_products_callback', 10, 2);
 
 function custom_products_callback($count = -1)
 {
 ?>
-    <ul class="products">
-        <?php
+<ul class="products">
+    <?php
         $args = array(
             'post_type'   => 'product',
             'post_status' => 'publish',
@@ -29,17 +61,17 @@ function custom_products_callback($count = -1)
         $the_query = new WP_Query($args);
         ?>
 
-        <!--  https://woocommerce.wp-a2z.org/oik_file/includes/abstracts/abstract-wc-product-php -->
+    <!--  https://woocommerce.wp-a2z.org/oik_file/includes/abstracts/abstract-wc-product-php -->
 
-        <?php if ($the_query->have_posts()) : ?>
-            <?php
+    <?php if ($the_query->have_posts()) : ?>
+    <?php
             do_action('woocommerce_before_shop_loop');
             //woocommerce_product_loop_start();
             ?>
-            <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+    <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
 
 
-                <?php
+    <?php
                 // this will get all details of the product
                 // api = https://woocommerce.wp-a2z.org/oik_file/includes/abstracts/abstract-wc-product-php/?bwscid1=2
                 //https://bloggingcommerce.com/en/the-exciting-story-of-wc-stripe-payment-request-wrapper-you-cant-imagine-what-happened-in-the-end/
@@ -71,67 +103,67 @@ function custom_products_callback($count = -1)
                 //https://deesbees.nz/collections/beeswax-food-wraps/products/birds-of-aotearoa-beeswax-food-wrap
 
                 ?>
-                <li>
-                    <div class="product-card">
+    <li>
+        <div class="product-card">
 
 
 
 
-                        <div class="clever-notices">
+            <div class="clever-notices">
+                <?php if ($details->is_sale_item) : ?>
+                <h1 class="notices-item sale">SALE</h1>
+                <?php endif; ?>
+                <?php if (($details->stock_status == "instock") && ($details->stock_controlled) && ($details->quantity < $details->low_stock_amount)) : ?>
+                <h1 class="notices-item low-stock">low stock</h1>
+                <?php endif; ?>
+
+                <?php if ($details->stock_status == "outofstock") : ?>
+                <h1 class="notices-item no-stock">out of stock</h1>
+                <?php endif; ?>
+            </div>
+
+            <div>
+                <a href=<?php echo $details->permalink ?> target="_self" rel="nofollow">
+                    <!-- https://www.hostinger.com/tutorials/wp_get_attachment_image -->
+                    <?php echo wp_get_attachment_image($details->image_id, 'woocommerce_single', "", array("alt" => "wax wrap", "class" => "img-aspect", "loading" => "eager")); ?>
+                </a>
+            </div>
+
+            <div class="card-details">
+                <div class="small-info">
+                    <div>
+                        <span><?php echo $details->name ?></span>
+
+                        <span>
+
                             <?php if ($details->is_sale_item) : ?>
-                                <h1 class="notices-item sale">SALE</h1>
+                            <?php echo "<span class='old-price'>WAS {$details->price}</span>" ?>
+                            <?php echo "{$details->sale_price} " ?>
+
+                            <?php else : ?>
+                            <?php echo $details->price ?>
                             <?php endif; ?>
-                            <?php if (($details->stock_status == "instock") && ($details->stock_controlled) && ($details->quantity < $details->low_stock_amount)) : ?>
-                                <h1 class="notices-item low-stock">low stock</h1>
-                            <?php endif; ?>
 
-                            <?php if ($details->stock_status == "outofstock") : ?>
-                                <h1 class="notices-item no-stock">out of stock</h1>
-                            <?php endif; ?>
-                        </div>
-
-                        <div>
-                            <a href=<?php echo $details->permalink ?> target="_self" rel="nofollow">
-                                <!-- https://www.hostinger.com/tutorials/wp_get_attachment_image -->
-                                <?php echo wp_get_attachment_image($details->image_id, 'woocommerce_single', "", array("alt" => "wax wrap", "class" => "img-aspect", "loading" => "eager")); ?>
-                            </a>
-                        </div>
-
-                        <div class="card-details">
-                            <div class="small-info">
-                                <div>
-                                    <span><?php echo $details->name ?></span>
-
-                                    <span>
-
-                                        <?php if ($details->is_sale_item) : ?>
-                                            <?php echo "<span class='old-price'>WAS {$details->price}</span>" ?>
-                                            <?php echo "{$details->sale_price} " ?>
-
-                                        <?php else : ?>
-                                            <?php echo $details->price ?>
-                                        <?php endif; ?>
-
-                                    </span>
-                                </div>
-                                <div>
-                                    <!-- <span><?php #echo $details->avail['availability'] 
+                        </span>
+                    </div>
+                    <div>
+                        <!-- <span><?php #echo $details->avail['availability'] 
                                                 ?></span> -->
-                                    <span>
-                                        <?php
+                        <span>
+                            <?php
                                         $var1 = $details->attribute_array['std']['name'];
                                         $var2 = $details->attribute_array['std']['options'][0];
                                         echo "Size {$var1} : {$var2}"; ?>
-                                    </span>
+                        </span>
 
-                                </div>
-                            </div>
+                    </div>
+                </div>
 
-                            <hr />
+                <hr />
 
-                            <div class="cart-buttons-grid">
-                                <?php do_action('woocommerce_before_add_to_cart_form'); ?>
-                                <?php
+                <div class="cart-buttons-grid">
+                    <?php do_action('woocommerce_before_add_to_cart_form'); ?>
+                    <?php
 
                                 if (($details->stock_controlled) && ($details->quantity > 0)) {
                                     echo do_shortcode('[add_to_cart id=' . $details->ID . ' sku class="add-to-cart-wrapper" style="" show_price="false"]');
@@ -141,26 +173,28 @@ function custom_products_callback($count = -1)
 
                                 ?>
 
-                                <a class="button product_type_simple" style="font-size: 18px; padding: 0.618em 1em; border-radius: 3px; line-height: 1;" href=<?php echo $details->permalink; ?> target="_self" rel="nofollow">
-                                    View More
-                                </a>
+                    <a class="button product_type_simple"
+                        style="font-size: 18px; padding: 0.618em 1em; border-radius: 3px; line-height: 1;"
+                        href=<?php echo $details->permalink; ?> target="_self" rel="nofollow">
+                        View More
+                    </a>
 
-                            </div>
+                </div>
 
-                        </div>
-                    </div>
+            </div>
+        </div>
 
-                </li>
+    </li>
 
-            <?php endwhile; ?>
-            <?php //woocommerce_product_loop_end();
+    <?php endwhile; ?>
+    <?php //woocommerce_product_loop_end();
             do_action('woocommerce_after_shop_loop'); ?>
-        <?php endif;
+    <?php endif;
         wp_reset_postdata(); ?>
 
 
 
-    </ul>
+</ul>
 <?php
 }
 
