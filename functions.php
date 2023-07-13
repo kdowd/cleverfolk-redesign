@@ -427,3 +427,10 @@ function cstm_display_product_category()
 		echo '<div class="items"><p>Size: ' . $size . '</p></div>';
 	}
 }
+
+
+add_action('admin_init', 'disable_autosave');
+function disable_autosave()
+{
+	wp_deregister_script('autosave');
+}

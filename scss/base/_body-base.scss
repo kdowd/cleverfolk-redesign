@@ -6,8 +6,17 @@ body {
   // maybe
   // min-height: 100dvh;
   min-height: 100svh;
+  margin: 0;
 }
 
 main {
   flex: 1;
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  // background-color: red; /* Something to get the user's attention */
+  outline: 1px solid var(--focus-colour-outline);
+  background-color: var(--focus-colour-bg);
+  color: var(--focus-colour);
 }

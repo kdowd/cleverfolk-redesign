@@ -5,14 +5,18 @@ window.addEventListener("load", (e) => {
 });
 
 function addBodyListeners(evt) {
+  // this event only fires if the mini-cart is live and visible - i think
   document.body.addEventListener("wc-blocks_added_to_cart", (evt) => {
-    window.figg = evt;
     let ele = document.querySelector(".toast");
     if (!!ele) {
       ele.classList.add("toast-show");
-      ele.addEventListener("animationend", (evt) => {
-        ele.classList.remove("toast-show");
-      });
+      ele.addEventListener(
+        "animationend",
+        (evt) => {
+          ele.classList.remove("toast-show");
+        },
+        { once: true }
+      );
     }
   });
 }
