@@ -162,8 +162,10 @@ function custom_products_callback($count = -1)
                 <hr />
 
                 <div class="cart-buttons-grid">
-                    <?php do_action('woocommerce_before_add_to_cart_form'); ?>
+
                     <?php
+                                #do_action('woocommerce_before_add_to_cart_button');
+
 
                                 if (($details->stock_controlled) && ($details->quantity > 0)) {
                                     echo do_shortcode('[add_to_cart id=' . $details->ID . ' sku class="add-to-cart-wrapper" style="" show_price="false"]');
@@ -171,7 +173,10 @@ function custom_products_callback($count = -1)
                                     echo do_shortcode('[add_to_cart id=' . $details->ID . ' sku class="add-to-cart-wrapper"  style="" show_price="false"]');
                                 }
 
+                                #do_action('woocommerce_after_add_to_cart_button');
                                 ?>
+
+
 
                     <a class="button product_type_simple"
                         style="font-size: 18px; padding: 0.618em 1em; border-radius: 3px; line-height: 1;"

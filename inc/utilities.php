@@ -6,7 +6,7 @@ add_action('admin_init', 'hide_admin_bar', 9);
 function hide_admin_bar()
 {
     //  if (!current_user_can('manage_options')) {
-    // show_admin_bar(false);
+    show_admin_bar(false);
     // }
 }
 
