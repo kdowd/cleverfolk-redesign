@@ -1,4 +1,10 @@
 .toast {
+  width: 250px;
+  height: 56px;
+  display: none;
+
+  opacity: 0;
+  pointer-events: none;
   background-color: snow;
   color: #000;
   box-shadow: 1px 1px 9px lightgrey;
@@ -7,12 +13,6 @@
   right: 0;
   z-index: 1002;
   margin: 12px;
-  display: flex;
-  width: 250px;
-  height: 56px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
   border: 1px solid lightgrey;
   border-radius: 4px;
 
@@ -47,5 +47,30 @@
         height: auto;
       }
     }
+  }
+}
+
+.toast.toast-show {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  animation: FadeIn 4s ease-in-out;
+  animation-fill-mode: initial;
+  animation-iteration-count: 1;
+}
+
+@keyframes FadeIn {
+  0% {
+    right: 0;
+    opacity: 0;
+  }
+  10% {
+    right: 0;
+    opacity: 1;
+  }
+  100% {
+    right: 0;
+    opacity: 0;
   }
 }
