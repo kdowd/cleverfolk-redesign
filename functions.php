@@ -6,6 +6,13 @@
 // https://www.adyen.com/payment-methods?country=Australia
 // UP TO DATE //////////
 // https://woocommerce.github.io/code-reference/hooks/hooks.html
+
+
+// nice - wp_send_json($array_result);
+// Don't forget to stop execution afterward.
+// wp_die();
+//do_action("wp_ajax_{$action}");
+
 if (!defined('CODE_BASE')) {
 	define('CODE_BASE', get_template_directory_uri());
 }
@@ -13,6 +20,10 @@ if (!defined('CODE_BASE')) {
 
 if (!defined('CURRENT_VERSION')) {
 	define('CURRENT_VERSION', '1.02');
+}
+
+if (!defined('DEV_MODE')) {
+	define('DEV_MODE', true);
 }
 
 
@@ -119,10 +130,10 @@ if (!function_exists('mcluhan_has_js')) {
 	function mcluhan_has_js()
 	{
 ?>
-		<script>
-			jQuery('html').removeClass('no-js').addClass('js');
-		</script>
-		<?php
+<script>
+jQuery('html').removeClass('no-js').addClass('js');
+</script>
+<?php
 	}
 }
 add_action('wp_head', 'mcluhan_has_js');
@@ -154,11 +165,11 @@ if (!function_exists('mcluhan_ajax_results')) {
 
 		?>
 
-				<p class="results-title"><?php _e('Search Results', 'mcluhan'); ?></p>
+<p class="results-title"><?php _e('Search Results', 'mcluhan'); ?></p>
 
-				<ul>
+<ul>
 
-					<?php
+    <?php
 
 					// Custom loop
 					while ($ajax_query->have_posts()) :
@@ -173,13 +184,13 @@ if (!function_exists('mcluhan_ajax_results')) {
 
 					?>
 
-				</ul>
+</ul>
 
-				<?php if ($ajax_query->max_num_pages > 1) : ?>
+<?php if ($ajax_query->max_num_pages > 1) : ?>
 
-					<a class="show-all" href="<?php echo esc_url(home_url('?s=' . $string)); ?>"><?php _e('Show all', 'mcluhan'); ?></a>
+<a class="show-all" href="<?php echo esc_url(home_url('?s=' . $string)); ?>"><?php _e('Show all', 'mcluhan'); ?></a>
 
-				<?php endif; ?>
+<?php endif; ?>
 
 <?php
 
@@ -332,6 +343,8 @@ require __DIR__ . '/inc/scripts.php';
 require __DIR__ . '/actions/actions.php';
 require __DIR__ . '/inc/wc-actions.php';
 require __DIR__ . '/inc/widget-areas.php';
+require __DIR__ . '/inc/generic-form.php';
+require __DIR__ . '/inc/generic-form-response.php';
 require __DIR__ . '/inc/logger.php';
 require __DIR__ . '/inc/utilities.php';
 
@@ -434,3 +447,12 @@ function disable_autosave()
 {
 	wp_deregister_script('autosave');
 }
+
+
+function defer_parsing_of_js($url)
+{
+	if (FALSE === strpos($url, '.js')) return $url;
+	if (strpos($url, 'jquery.js')) return $url;
+	return "$url' defer ";
+}
+#add_filter('clean_url', 'defer_parsing_of_js', 11, 1);

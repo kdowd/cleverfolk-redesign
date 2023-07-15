@@ -26,6 +26,7 @@ function updateCartInfo() {
 }
 
 function searchAndListen() {
+  // could yse endpoint :  https://cleverfolk.co.nz/wp-json/wc/store/v1/cart/
   // let mini_cart_element = document.querySelector(".wc-block-mini-cart__button");
   let mini_cart_element = document.querySelector(".wc-block-mini-cart");
 

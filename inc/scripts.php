@@ -6,7 +6,7 @@ function load_site_styles()
 
     wp_enqueue_style('site-styles', CODE_BASE . '/css/site-styles.min.css', array(), $CACHE_BUSTER);
     wp_enqueue_style('main-style', CODE_BASE . '/css/main.min.css', array(), $CACHE_BUSTER);
-    wp_enqueue_style('temp-style', CODE_BASE . '/css/temp.css', array(), $CACHE_BUSTER);
+    // wp_enqueue_style('temp-style', CODE_BASE . '/css/temp.css', array(), $CACHE_BUSTER);
 }
 
 
@@ -42,3 +42,18 @@ function load_site_scripts()
 
 
 add_action("wp_enqueue_scripts", "load_site_scripts");
+
+
+
+///////////////////////////
+
+add_action('wp_enqueue_scripts', 'generic_contact_form');
+
+function generic_contact_form()
+{
+    if (get_queried_object()->post_name == "about") {
+        wp_register_script("contact-form-script", CODE_BASE . '/assets/js/contact-form.js', array(), false, true);
+        #wp_localize_script('contact-form-script', 'genericContactForm', array('formBaseURL' => admin_url('admin-ajax.php')));
+        wp_enqueue_script('contact-form-script');
+    }
+}
