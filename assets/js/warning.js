@@ -1,5 +1,5 @@
 setTimeout((e) => {
-  alert("This is a demo store , no orders will be taken and no money debited.");
+  alert("This is in development , no orders will be taken and no money debited.");
 }, 2000);
 
 // https://wpshout.com/get_queried_object-how-and-why-to-use-it-with-examples/#gref

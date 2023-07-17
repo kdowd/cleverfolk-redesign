@@ -16,7 +16,11 @@
 
 ul.products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(345px, 360px));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 320px));
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 360px));
+  }
 
   place-items: center;
   place-content: center;
@@ -26,10 +30,10 @@ ul.products {
   margin: 0;
   padding: 0 2rem;
   column-gap: 2rem;
-  row-gap: 2.6rem;
+  row-gap: 2.4rem;
 
   .woocommerce-notices-wrapper {
-    display: none;
+    // display: none;
   }
 
   li {

@@ -129,7 +129,7 @@
 
   .main-menu {
     opacity: 0;
-    padding-bottom: 124px;
+    // padding-bottom: 124px;
     transition: opacity 0.4s linear;
   }
 
@@ -143,6 +143,11 @@
 
   .mobile-menu-wrapper.visible .main-menu {
     opacity: 1;
+    margin-top: 75px;
+    position: absolute;
+    top: 50%;
+    left: initial;
+    transform: translateY(-50%);
   }
 
   .mobile-menu-wrapper .social-menu {
@@ -907,7 +912,7 @@
   }
 
   .mobile-menu-wrapper .main-menu {
-    margin-top: 20px;
+    // margin-top: 20px;
     padding-bottom: 0;
     padding-right: 50%;
   }

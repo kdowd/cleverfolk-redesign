@@ -22,7 +22,8 @@ function get_toast_callback()
 
     <span class="bar"></span>
 
-    <div class="toast-content"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">
+    <div class="toast-content">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">
             <mask id="ipSCorrect0">
                 <path fill="#fff" fill-rule="evenodd" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
                     stroke-width="4" d="m4 24l5-5l10 10L39 9l5 5l-25 25L4 24Z" clip-rule="evenodd" />
@@ -51,6 +52,14 @@ add_action('get-custom-products', 'custom_products_callback', 10, 2);
 function custom_products_callback($count = -1)
 {
 ?>
+
+<!--  https://woocommerce.wp-a2z.org/oik_file/includes/abstracts/abstract-wc-product-php -->
+<?php
+    // adds element "woocommerce-notices-wrapper"
+    do_action('woocommerce_before_shop_loop');
+   // woocommerce_product_loop_start();
+    ?>
+
 <ul class="products">
     <?php
         $args = array(
@@ -61,13 +70,10 @@ function custom_products_callback($count = -1)
         $the_query = new WP_Query($args);
         ?>
 
-    <!--  https://woocommerce.wp-a2z.org/oik_file/includes/abstracts/abstract-wc-product-php -->
+
 
     <?php if ($the_query->have_posts()) : ?>
-    <?php
-            do_action('woocommerce_before_shop_loop');
-            //woocommerce_product_loop_start();
-            ?>
+
     <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
 
 

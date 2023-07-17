@@ -6,7 +6,7 @@ get_header(); ?>
 <header class="entry-header section-inner">
     <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
 </header>
-
+<hr>
 
 
 

@@ -1,9 +1,6 @@
 <?php
-
 get_header();
-
-if (have_posts()) :
-    while (have_posts()) : the_post();
+if (have_posts()) : while (have_posts()) : the_post();
         $post_type = get_post_type();
 ?>
 
@@ -18,8 +15,10 @@ if (have_posts()) :
 
     <header class="entry-header section-inner">
 
+
         <?php
                 the_title('<h1 class="entry-title">', '</h1>');
+
 
                 // Make sure we have a custom excerpt
                 if (has_excerpt()) {
@@ -28,6 +27,8 @@ if (have_posts()) :
 
                 // Only output post meta data on single
                 if (is_single() || is_attachment()) : ?>
+
+
 
         <div class="meta">
 
@@ -49,61 +50,62 @@ if (have_posts()) :
         <?php endif; ?>
 
     </header><!-- .entry-header -->
-
+    <?php if (is_cart() || is_checkout() || is_privacy_policy()) : ?>
+    <hr>
+    <?php endif; ?>
     <div class="entry-content section-inner">
 
         <?php the_content(); ?>
 
     </div> <!-- .content -->
+</article>
 
-    <?php
+<?php
 
-            wp_link_pages(array(
-                'before' => '<p class="section-inner linked-pages">' . __('Pages', 'mcluhan') . ':',
-            ));
+        wp_link_pages(array(
+            'before' => '<p class="section-inner linked-pages">' . __('Pages', 'mcluhan') . ':',
+        ));
 
-            if ($post_type == 'post' && get_the_tags()) : ?>
+        if ($post_type == 'post' && get_the_tags()) : ?> <div class="meta bottom section-inner">
+    <p class="tags"><?php the_tags(' #', ' #', ' '); ?></p>
+</div> <!-- .meta -->
 
-    <div class="meta bottom section-inner">
-        <p class="tags"><?php the_tags(' #', ' #', ' '); ?></p>
-    </div> <!-- .meta -->
+<?php
+        endif;
 
-    <?php
-            endif;
+        // Check for single post pagination
+        if (is_single() && !is_attachment() && (get_previous_post_link() || get_next_post_link())) : ?>
 
-            // Check for single post pagination
-            if (is_single() && !is_attachment() && (get_previous_post_link() || get_next_post_link())) : ?>
+<div class="post-pagination section-inner">
 
-    <div class="post-pagination section-inner">
+    <div class="previous-post">
+        <?php if (get_previous_post_link()) : ?>
+        <?php echo get_previous_post_link('%link', '<span>%title</span>'); ?>
+        <?php endif; ?>
+    </div>
 
-        <div class="previous-post">
-            <?php if (get_previous_post_link()) : ?>
-            <?php echo get_previous_post_link('%link', '<span>%title</span>'); ?>
-            <?php endif; ?>
-        </div>
+    <div class="next-post">
+        <?php if (get_next_post_link()) : ?>
+        <?php echo get_next_post_link('%link', '<span>%title</span>'); ?>
+        <?php endif; ?>
+    </div>
 
-        <div class="next-post">
-            <?php if (get_next_post_link()) : ?>
-            <?php echo get_next_post_link('%link', '<span>%title</span>'); ?>
-            <?php endif; ?>
-        </div>
+</div><!-- .post-pagination -->
 
-    </div><!-- .post-pagination -->
+<?php endif;
 
-    <?php endif;
+        // Output comments wrapper if comments are open, or if there's a comment number – and check for password
+        if ((comments_open() || get_comments_number()) && !post_password_required()) : ?>
 
-            // Output comments wrapper if comments are open, or if there's a comment number – and check for password
-            if ((comments_open() || get_comments_number()) && !post_password_required()) : ?>
+<div class="comments-section-inner section-inner wide">
+    <?php comments_template(); ?>
+</div><!-- .comments-section-inner -->
 
-    <div class="comments-section-inner section-inner wide">
-        <?php comments_template(); ?>
-    </div><!-- .comments-section-inner -->
+<?php endif; ?>
 
-    <?php endif; ?>
 
-    </div> <!-- .post -->
 
-    <?php
+<?php
 
         if ($post_type == 'post') {
             get_template_part('related-posts');

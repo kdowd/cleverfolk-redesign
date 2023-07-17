@@ -146,3 +146,16 @@
 .product_meta .posted_in {
   display: none;
 }
+
+#override .product-thumbnail {
+  display: block;
+}
+
+#override .product-thumbnail::before {
+  display: none;
+}
+#override .woocommerce a.remove {
+  font-size: 2em;
+  line-height: 0.85;
+  color: var(--site-colour-primary-dark) !important;
+}

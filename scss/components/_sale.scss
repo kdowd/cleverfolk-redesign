@@ -63,4 +63,6 @@ div.woocommerce span.onsale {
 #override .woocommerce-cart-form,
 #override .shop_table {
   background-color: white;
+  // following is for the cart page, to even up across pages
+  margin-top: 60px;
 }
