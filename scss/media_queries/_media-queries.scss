@@ -143,11 +143,8 @@
 
   .mobile-menu-wrapper.visible .main-menu {
     opacity: 1;
-    margin-top: 75px;
-    position: absolute;
-    top: 50%;
-    left: initial;
-    transform: translateY(-50%);
+    position: relative;
+    top: 2%;
   }
 
   .mobile-menu-wrapper .social-menu {

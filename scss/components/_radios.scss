@@ -1,0 +1,48 @@
+input[type="radio"] {
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 28px;
+  height: 28px;
+}
+
+// fieldset [type="radio"]::before {
+//   content: "";
+//   width: 0.65em;
+//   height: 0.65em;
+//   border-radius: 50%;
+//   transform: scale(0);
+//   transition: 120ms transform ease-in-out;
+//   box-shadow: inset 1em 1em var(--form-control-color);
+// }
+
+// fieldset input[type="radio"]:checked::before {
+//   transform: scale(1);
+// }
+
+.switch-group {
+  color: black;
+  accent-color: currentColor;
+  legend {
+    color: currentColor;
+  }
+}
+
+.switch-group label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.666rem 0;
+
+  span:first-of-type {
+    text-transform: capitalize;
+  }
+
+  span {
+    color: currentColor;
+  }
+}
+
+fieldset label:hover {
+  cursor: pointer;
+}

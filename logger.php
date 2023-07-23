@@ -81,11 +81,14 @@ function logger($obj, $label = '')
                     }
                 })
             }
-            ////console.log(obj);
+            console.log("++++++++++++++++++++++++++++++++++++++");
+            console.log(obj);
+            console.log("++++++++++++++++++++++++++++++++++++++");
             var pre = document.createElement('pre');
             var h2 = document.createElement('h2');
             pre.innerHTML = obj;
-            //h2.innerHTML = '<?php echo addslashes($label); ?>';
+            //h2.innerHTML = '<?php #echo addslashes($label); 
+                                ?> ';
             // logger.appendChild(h2);
             logger.appendChild(pre);
 

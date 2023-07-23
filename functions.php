@@ -19,7 +19,7 @@ if (!defined('CODE_BASE')) {
 
 
 if (!defined('CURRENT_VERSION')) {
-	define('CURRENT_VERSION', '1.02');
+	define('CURRENT_VERSION', '1.03');
 }
 
 if (!defined('DEV_MODE')) {
@@ -97,29 +97,6 @@ if (!function_exists('mcluhan_enqueue_scripts')) :
 endif;
 
 
-/*	-----------------------------------------------------------------------------------------------
-	FILTER POST_CLASS
---------------------------------------------------------------------------------------------------- */
-
-if (!function_exists('mcluhan_post_classes')) {
-	function mcluhan_post_classes($classes)
-	{
-
-		// Class indicating presence/lack of post thumbnail
-		$classes[] = (has_post_thumbnail() ? 'has-thumbnail' : 'missing-thumbnail');
-
-		// Class indicating lack of title
-		if (!get_the_title()) $classes[] = 'no-title';
-
-		return $classes;
-	}
-}
-add_action('post_class', 'mcluhan_post_classes');
-
-
-/*	-----------------------------------------------------------------------------------------------
-	FILTER BODY_CLASS
---------------------------------------------------------------------------------------------------- */
 
 
 /*	-----------------------------------------------------------------------------------------------
@@ -130,10 +107,10 @@ if (!function_exists('mcluhan_has_js')) {
 	function mcluhan_has_js()
 	{
 ?>
-<script>
-jQuery('html').removeClass('no-js').addClass('js');
-</script>
-<?php
+		<script>
+			jQuery('html').removeClass('no-js').addClass('js');
+		</script>
+		<?php
 	}
 }
 add_action('wp_head', 'mcluhan_has_js');
@@ -165,11 +142,11 @@ if (!function_exists('mcluhan_ajax_results')) {
 
 		?>
 
-<p class="results-title"><?php _e('Search Results', 'mcluhan'); ?></p>
+				<p class="results-title"><?php _e('Search Results', 'mcluhan'); ?></p>
 
-<ul>
+				<ul>
 
-    <?php
+					<?php
 
 					// Custom loop
 					while ($ajax_query->have_posts()) :
@@ -184,13 +161,13 @@ if (!function_exists('mcluhan_ajax_results')) {
 
 					?>
 
-</ul>
+				</ul>
 
-<?php if ($ajax_query->max_num_pages > 1) : ?>
+				<?php if ($ajax_query->max_num_pages > 1) : ?>
 
-<a class="show-all" href="<?php echo esc_url(home_url('?s=' . $string)); ?>"><?php _e('Show all', 'mcluhan'); ?></a>
+					<a class="show-all" href="<?php echo esc_url(home_url('?s=' . $string)); ?>"><?php _e('Show all', 'mcluhan'); ?></a>
 
-<?php endif; ?>
+				<?php endif; ?>
 
 <?php
 
@@ -206,126 +183,6 @@ if (!function_exists('mcluhan_ajax_results')) {
 } // End if().
 add_action('wp_ajax_nopriv_ajax_pagination', 'mcluhan_ajax_results');
 add_action('wp_ajax_ajax_pagination', 'mcluhan_ajax_results');
-
-
-/*	-----------------------------------------------------------------------------------------------
-	GET AND OUTPUT ARCHIVE TYPE
---------------------------------------------------------------------------------------------------- */
-
-/* GET THE TYPE */
-
-if (!function_exists('mcluhan_get_archive_type')) {
-	function mcluhan_get_archive_type()
-	{
-		if (is_category()) {
-			$type = __('Category', 'mcluhan');
-		} elseif (is_tag()) {
-			$type = __('Tag', 'mcluhan');
-		} elseif (is_author()) {
-			$type = __('Author', 'mcluhan');
-		} elseif (is_year()) {
-			$type = __('Year', 'mcluhan');
-		} elseif (is_month()) {
-			$type = __('Month', 'mcluhan');
-		} elseif (is_day()) {
-			$type = __('Date', 'mcluhan');
-		} elseif (is_post_type_archive()) {
-			$type = __('Post Type', 'mcluhan');
-		} elseif (is_tax()) {
-			$term = get_queried_object();
-			$taxonomy = $term->taxonomy;
-			$taxonomy_labels = get_taxonomy_labels(get_taxonomy($taxonomy));
-			$type = $taxonomy_labels->name;
-		} else if (is_search()) {
-			$type = __('Search Results', 'mcluhan');
-		} else if (is_home() && get_theme_mod('mcluhan_home_title')) {
-			$type = __('Introduction', 'mcluhan');
-		} else {
-			$type = __('Archives', 'mcluhan');
-		}
-
-		return $type;
-	}
-}
-
-/* OUTPUT THE TYPE */
-
-if (!function_exists('mcluhan_the_archive_type')) {
-	function mcluhan_the_archive_type()
-	{
-		$type = mcluhan_get_archive_type();
-
-		echo $type;
-	}
-}
-
-
-/*	-----------------------------------------------------------------------------------------------
-	FILTER ARCHIVE TITLE
-
-	@param	$title string		The initial title.
---------------------------------------------------------------------------------------------------- */
-
-if (!function_exists('mcluhan_remove_archive_title_prefix')) :
-	function mcluhan_remove_archive_title_prefix($title)
-	{
-
-		// A duplicate of the core archive title conditional, but without the prefix.
-		if (is_category()) {
-			$title = single_cat_title('', false);
-		} elseif (is_tag()) {
-			$title = single_tag_title('#', false);
-		} elseif (is_author()) {
-			$title = '<span class="vcard">' . get_the_author() . '</span>';
-		} elseif (is_year()) {
-			$title = get_the_date('Y');
-		} elseif (is_month()) {
-			$title = get_the_date('F Y');
-		} elseif (is_day()) {
-			$title = get_the_date(get_option('date_format'));
-		} elseif (is_tax('post_format')) {
-			if (is_tax('post_format', 'post-format-aside')) {
-				$title = _x('Aside', 'post format archive title', 'mcluhan');
-			} elseif (is_tax('post_format', 'post-format-gallery')) {
-				$title = _x('Galleries', 'post format archive title', 'mcluhan');
-			} elseif (is_tax('post_format', 'post-format-image')) {
-				$title = _x('Images', 'post format archive title', 'mcluhan');
-			} elseif (is_tax('post_format', 'post-format-video')) {
-				$title = _x('Videos', 'post format archive title', 'mcluhan');
-			} elseif (is_tax('post_format', 'post-format-quote')) {
-				$title = _x('Quotes', 'post format archive title', 'mcluhan');
-			} elseif (is_tax('post_format', 'post-format-link')) {
-				$title = _x('Links', 'post format archive title', 'mcluhan');
-			} elseif (is_tax('post_format', 'post-format-status')) {
-				$title = _x('Statuses', 'post format archive title', 'mcluhan');
-			} elseif (is_tax('post_format', 'post-format-audio')) {
-				$title = _x('Audio', 'post format archive title', 'mcluhan');
-			} elseif (is_tax('post_format', 'post-format-chat')) {
-				$title = _x('Chats', 'post format archive title', 'mcluhan');
-			}
-		} elseif (is_post_type_archive()) {
-			$title = post_type_archive_title('', false);
-		} elseif (is_tax()) {
-			$title = single_term_title('', false);
-		} elseif (is_home()) {
-			if (get_theme_mod('mcluhan_home_title')) {
-				$title = get_theme_mod('mcluhan_home_title');
-			} elseif (get_option('page_for_posts')) {
-				$title = get_the_title(get_option('page_for_posts'));
-			} else {
-				$title = '';
-			}
-		} elseif (is_search()) {
-			$title = '&ldquo;' . get_search_query() . '&rdquo;';
-		} else {
-			$title = __('Archives', 'mcluhan');
-		}
-
-		return $title;
-	}
-	add_filter('get_the_archive_title', 'mcluhan_remove_archive_title_prefix');
-endif;
-
 
 
 
@@ -345,8 +202,10 @@ require __DIR__ . '/inc/wc-actions.php';
 require __DIR__ . '/inc/widget-areas.php';
 require __DIR__ . '/inc/generic-form.php';
 require __DIR__ . '/inc/generic-form-response.php';
-require __DIR__ . '/inc/logger.php';
+#require __DIR__ . '/inc/logger.php';
+require __DIR__ . '/inc/seo.php';
 require __DIR__ . '/inc/utilities.php';
+require __DIR__ . '/inc/pretty_print.php';
 
 add_action('parse_request', 'woocommerce_clear_cart_url');
 function woocommerce_clear_cart_url()
